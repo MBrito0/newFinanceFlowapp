@@ -1,0 +1,221 @@
+/* Adaptação de register.page.scss para Layout SPLIT-SCREEN Desktop/Tecnológico */
+
+:root {
+    --primary-blue: #115bda;
+    --accent-blue-cta: #104baa;
+    --background-blue: #e0f2ff; /* Fundo suave */
+    --tech-panel-bg: #f4f7f9;   /* Fundo do painel de informações */
+    --text-dark: #2c3e50;
+    --text-light: #555;
+}
+
+body {
+    background-color: var(--background-blue); 
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; 
+}
+
+/* ----------------------------------- */
+/* HEADER E ESTRUTURA BASE             */
+/* ----------------------------------- */ 
+
+.header {
+    width: 100%;
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 15px 30px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    margin: 0 auto;
+    font-size: 22px;
+}
+
+.back-button {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+/* Container Principal Flutuante e Centralizado */
+.split-content-wrapper {
+    flex-grow: 1;
+    display: flex;
+    max-width: 1100px; /* Largura total da janela flutuante */
+    width: 90%;
+    margin: 40px auto;
+    border-radius: 15px;
+    overflow: hidden; /* Garante que os filhos não vazem */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Sombra flutuante forte */
+}
+
+/* ----------------------------------- */
+/* COLUNA 1: FORMULÁRIO                */
+/* ----------------------------------- */
+
+.form-container {
+    padding: 40px;
+    background-color: #ffffff;
+    flex: 1; /* Ocupa uma parte flexível */
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--text-dark);
+    font-size: 26px;
+    font-weight: 700;
+    border-bottom: 2px solid var(--background-blue);
+    padding-bottom: 10px;
+}
+
+/* Layout de Grade para Inputs (2 COLUNAS) */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 30px;
+    margin-bottom: 20px;
+}
+
+.form-group.span-2 {
+    grid-column: span 2; /* Nome completo e Email ocupam a largura total */
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--text-dark);
+    font-size: 1em;
+}
+
+.form-container input:not([type="checkbox"]),
+.form-container select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: var(--tech-panel-bg); /* Fundo sutilmente cinza/azul */
+    transition: border-color 0.2s;
+}
+
+.form-container input:focus,
+.form-container select:focus {
+    border-color: var(--primary-blue);
+    background-color: #fff;
+}
+
+
+/* ----------------------------------- */
+/* CHECKBOX E BOTÃO DE SUBMISSÃO       */
+/* ----------------------------------- */
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: var(--text-light);
+    margin-bottom: 25px;
+    grid-column: span 2;
+}
+
+.btn-register {
+    grid-column: span 2;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--accent-blue-cta);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 10px var(--shadow-blue-strong);
+}
+
+.btn-register:hover {
+    background-color: #100abf;
+}
+
+.login-link {
+    grid-column: span 2;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 1em;
+}
+.login-link a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* ----------------------------------- */
+/* COLUNA 2: PAINEL INFORMATIVO        */
+/* ----------------------------------- */
+
+.info-side-panel {
+    flex: 1; /* Ocupa a mesma largura do formulário */
+    background: linear-gradient(135deg, var(--primary-blue), #0c3394); /* Gradiente forte */
+    color: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.side-panel-logo {
+    max-width: 100px;
+    filter: brightness(2); /* Clareia o logo azul no fundo escuro */
+    margin-bottom: 20px;
+}
+
+.info-side-panel h2 {
+    font-size: 1.8em;
+    margin-bottom: 30px;
+    font-weight: 700;
+}
+
+.info-list {
+    text-align: left;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.info-item ion-icon {
+    font-size: 30px;
+    color: var(--accent-blue-cta);
+    margin-right: 15px;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.info-item p {
+    font-size: 15px;
+    color: #e0e0e0;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Mensagens de Feedback */
+.alert { padding: 15px; margin-bottom: 20px; border-radius: 8px; font-weight: bold; }
+.error-message { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.success-message { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }

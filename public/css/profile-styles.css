@@ -1,0 +1,150 @@
+/* Estilos Específicos para a Página de Perfil */
+
+/* Layout principal em duas colunas */
+.page-content {
+    padding: 30px;
+    background: linear-gradient(to bottom, #e0f7fa, #ffffff); 
+    min-height: calc(100vh - 72px);
+    display: grid;
+    grid-template-columns: 1fr 2fr; /* Info à esquerda, Formulários à direita */
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Cartões base (container para as seções) */
+.profile-card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 25px;
+}
+
+/* Coluna de Informações (Esquerda) */
+.profile-info-column {
+    grid-column: 1 / 2;
+}
+
+.profile-details-card {
+    /* Estilo adicional para destacar o card de detalhes */
+    text-align: center;
+    border-top: 5px solid #115bda;
+}
+
+.profile-picture-section {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Estilo do Avatar (baseado em profile.page.scss) */
+.profile-avatar {
+    font-size: 80px;
+    color: #072799; 
+    margin-bottom: 10px;
+}
+
+.profile-details-card h2 {
+    margin: 5px 0 0 0;
+    color: #001e79;
+}
+
+.username-display {
+    color: #555;
+    font-size: 0.9em;
+}
+
+.detail-group {
+    text-align: left;
+}
+
+.detail-group h4 {
+    color: #115bda;
+    border-bottom: 1px solid #e0f7fa;
+    padding-bottom: 5px;
+    margin-top: 15px;
+}
+
+.detail-group p {
+    margin: 8px 0;
+    font-size: 15px;
+}
+.detail-group strong {
+    font-weight: 600;
+    color: #333;
+    display: inline-block;
+    width: 120px;
+}
+
+/* Coluna de Formulários (Direita) */
+.profile-form-column {
+    grid-column: 2 / 3;
+}
+
+.profile-card h2 {
+    color: #0a2eae;
+    font-size: 22px;
+    margin-top: 0;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #e0f7fa;
+    padding-bottom: 10px;
+}
+
+.profile-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.profile-form input[type="text"],
+.profile-form input[type="email"],
+.profile-form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+/* Botões */
+.btn-save-profile,
+.btn-change-password {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-save-profile {
+    background-color: #083399; /* Cor principal */
+    color: white;
+}
+.btn-save-profile:hover {
+    background-color: #072799;
+}
+
+.btn-change-password {
+    background-color: #115bda; /* Cor secundária/ação */
+    color: white;
+}
+.btn-change-password:hover {
+    background-color: #0a2eae;
+}
+
+
+/* ----------------------------------- */
+/* Mensagens de Feedback               */
+/* ----------------------------------- */
+
+.alert { padding: 15px; margin-bottom: 20px; border-radius: 8px; font-weight: bold; }
+.error-message { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+.success-message { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }

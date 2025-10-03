@@ -1,0 +1,152 @@
+<?php
+// Inclui o arquivo de configuração, que inicia a sessão e a conexão com o BD
+require_once __DIR__ . '/../includes/config.php';
+
+// Redireciona se o usuário já estiver logado
+/*if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    header("location: dashboard.php");
+    exit;
+}*/
+
+$email = $password = "";
+$email_err = $password_err = $login_err = "";
+$success_msg = "";
+
+// Verifica se há mensagem de sucesso vinda do cadastro
+if (isset($_GET['success']) && $_GET['success'] === 'registered') {
+    $success_msg = "Cadastro realizado com sucesso! Faça seu login.";
+}
+
+// Processa o formulário de login (Lógica de Backend)
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+
+    // 1. Validação de E-mail
+    if(empty(trim($_POST["email"]))){
+        $email_err = "Por favor, insira o seu e-mail.";
+    } else{
+        $email = trim($_POST["email"]);
+    }
+
+    // 2. Validação de Senha
+    if(empty(trim($_POST["password"]))){
+        $password_err = "Por favor, insira a sua senha.";
+    } else{
+        $password = trim($_POST["password"]);
+    }
+
+    // 3. Verifica as credenciais no banco de dados
+    if(empty($email_err) && empty($password_err)){
+        $sql = "SELECT id, full_name, email, password_hash FROM users WHERE email = ?";
+
+        if($stmt = $conn->prepare($sql)){
+            $stmt->bind_param("s", $param_email);
+            $param_email = $email;
+
+            if($stmt->execute()){
+                $stmt->store_result();
+
+                if($stmt->num_rows == 1){
+                    $stmt->bind_result($id, $full_name, $email, $hashed_password);
+                    if($stmt->fetch()){
+                        // 4. Verifica a senha criptografada
+                        if(password_verify($password, $hashed_password)){
+                            // Senha correta: Inicia a sessão
+                            $_SESSION["loggedin"] = true;
+                            $_SESSION["id"] = $id;
+                            $_SESSION["email"] = $email;
+                            $_SESSION["full_name"] = $full_name;
+                            
+                            // Redireciona para a página de dashboard
+                            header("location: dashboard.php");
+                            exit;
+                        } else{
+                            $login_err = "E-mail ou senha inválidos.";
+                        }
+                    }
+                } else{
+                    $login_err = "E-mail ou senha inválidos.";
+                }
+            } else{
+                $login_err = "Oops! Algo deu errado. Tente novamente mais tarde.";
+            }
+            $stmt->close();
+        }
+    }
+    
+    if ($conn) $conn->close();
+}
+?> 
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | FinanceFlow</title>
+    <link rel="stylesheet" href="../public/css/login-styles.css">
+    <link href="https://unpkg.com/ionicons@5.5.2/dist/css/ionicons.min.css" rel="stylesheet">
+</head>
+<body class="register-body">
+    <header class="header">
+        <h1>Login</h1>
+    </header> 
+
+    <div class="split-content-wrapper">
+        
+        <div class="info-side-panel">
+            <img src="../public/assets/logofianceflow.png" alt="Logo" class="side-panel-logo">
+            <h2>Bem-vindo de Volta!</h2>
+            
+            <div class="info-list">
+                <div class="info-item">
+                    <ion-icon name="trending-up-outline"></ion-icon>
+                    <p>Continue monitorando o crescimento do seu patrimônio e suas metas ativas.</p>
+                </div>
+                <div class="info-item">
+                    <ion-icon name="lock-closed-outline"></ion-icon>
+                    <p>Login seguro e acesso imediato aos seus dados financeiros.</p>
+                </div>
+                <div class="info-item">
+                    <ion-icon name="stats-chart-outline"></ion-icon>
+                    <p>Acesse o Dashboard e as últimas transações registradas em tempo real.</p>
+                </div>
+            </div>
+            <a href="register.php" class="btn-side-register">
+                Não tem Login? Cadastre-se
+            </a>
+        </div>
+        
+        <div class="form-container">
+            <div class="form-block">
+                <img src="../public/assets/logofianceflow.png" alt="Logo" class="logo-interno">
+                <h2>Acesse sua Conta</h2>
+                
+                <?php if (!empty($success_msg)): ?>
+                    <div class="alert success-message"><?php echo $success_msg; ?></div>
+                <?php endif; ?>
+                <?php if (!empty($login_err)): ?>
+                    <div class="alert error-message"><?php echo $login_err; ?></div>
+                <?php endif; ?>
+
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <div class="input-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" name="email" id="email" class="form-input" required value="<?php echo htmlspecialchars($email); ?>">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="password">Senha</label>
+                        <input type="password" name="password" id="password" class="form-input" required>
+                    </div>
+
+                    <div class="forgot-password">
+                        <a href="reset-password.php">Esqueceu sua senha?</a>
+                    </div>
+
+                    <div class="form-actions">
+                        <input type="submit" class="btn-login" value="Entrar">
+                    </div>
+                </form>
+            </div>
+        </div> </div> </body>
+</html>
