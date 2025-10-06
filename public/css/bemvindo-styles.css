@@ -10,11 +10,13 @@
 }
 
 body {
-    background-color: var(--background-fresh); /* Fundo muito claro */
+    background: linear-gradient(#6bb2ff, #3d89fa, #587bed, #4073d9, #4538fb, #4b69ff, #3628ff);
     font-family: 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
+
+
 
 .landing-container {
     max-width: 1200px;
@@ -26,17 +28,166 @@ body {
 /* HEADER E BOTÕES                     */
 /* ----------------------------------- */
 
+/* ----------------------------------- */
+/* HEADER E BOTÕES (Com Fundo Azul)    */
+/* ----------------------------------- */
+
+html {
+    scroll-behavior: smooth;
+}
+
 .landing-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 0;
-    border-bottom: none;
-    margin-bottom: 20px;
+    padding: 15px 30px;
+    width: 100%;
+    margin: 0; /* garante que não tenha espaços */
+    
+    /* Fundo fixo */
+    background-color: var(--primary-blue);
+
+    /* Estilo visual */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    border-radius: 0 0 20px 20px; /* bordas arredondadas só embaixo */
+    overflow: hidden; /* evita que o conteúdo ultrapasse */
+    
+    /* Fixar no topo */
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+/* ESTILIZAÇÃO DO NAV-BAR CENTRO */
+
+/* ------------------------------- */
+/* ACESSIBILIDADE NA NAVBAR        */
+/* ------------------------------- */
+.accessibility-tools {
+    display: flex;
+    gap: 12px;
+    margin-right: 20px;
+}
+
+.accessibility-tools button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.6em;
+    color: white;
+    transition: transform 0.2s, color 0.2s;
+}
+
+.accessibility-tools button:hover {
+    transform: scale(1.2);
+    color: #ffd700; /* amarelo no hover */
+}
+
+/* ==================== */
+/* DARK MODE STYLES     */
+/* ==================== */
+body.dark-mode {
+  background: #121212; /* fundo principal */
+  color: #e0e0e0;      /* texto padrão */
+}
+
+body.dark-mode .landing-header {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+body.dark-mode .main-nav .nav-link {
+  color: #e0e0e0;
+}
+
+body.dark-mode .main-nav .nav-link:hover {
+  color: #ffd700;
+}
+
+body.dark-mode .hero-text h1,
+body.dark-mode .hero-text p {
+  color: #e0e0e0;
+}
+
+body.dark-mode .value-card {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+body.dark-mode .value-card h3 {
+  color: #4a90e2; /* mantém um destaque */
+}
+
+body.dark-mode .value-card p {
+  color: #b0b0b0;
+}
+
+body.dark-mode .dicas-section {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+body.dark-mode .dica-card {
+  background-color: #2a2a2a;
+  color: #e0e0e0;
+}
+
+body.dark-mode .dica-card h3 {
+  color: #ffffff;
+}
+
+body.dark-mode .final-quote {
+  color: #4a90e2;
+}
+
+body.dark-mode .landing-footer {
+  background-color: #1e1e1e;
+  color: #b0b0b0;
+}
+
+body.dark-mode .footer-link {
+  color: #e0e0e0;
+}
+
+body.dark-mode .footer-link:hover {
+  color: #ffd700;
+}
+
+.main-nav {
+    display: flex;
+    gap: 30px; 
+    flex-grow: 1; 
+    justify-content: center; 
+}
+
+.main-nav .nav-link {
+    text-decoration: none;
+    color: white; 
+    font-weight: 500;
+    padding: 5px 0;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.main-nav .nav-link:hover {
+    color: #ffd700; /* Amarelo/Destaque no hover */
+}
+
+/* O botão de Entrar deve ser transparente com borda branca */
+.btn-login-header {
+    background-color: transparent;
+    color: white; 
+    border: 1px solid white; 
+}
+
+.btn-login-header:hover {
+    background-color: rgba(255, 255, 255, 0.1); 
+    color: white;
 }
 
 .header-logo {
-    max-width: 180px;
+    max-width: 100px;
     height: auto;
 }
 
@@ -100,7 +251,7 @@ body {
 
 .hero-text p {
     font-size: 1.1em;
-    color: #666; 
+    color: #000000; 
     margin-bottom: 30px;
 }
 
@@ -108,7 +259,7 @@ body {
     list-style: none;
     padding: 0;
     font-size: 1em;
-    color: #666;
+    color: #ffffff;
     margin-bottom: 40px;
     display: flex;
     gap: 30px; 

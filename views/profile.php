@@ -9,51 +9,50 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 $user_id = $_SESSION["id"];
-$full_name = $email = $date_created = ""; // 'username' removido daqui
+$full_name = $email = $dateOfBirth = $gender = $phone_number = $date_created = ""; 
 $profile_err = $profile_success = "";
 $password_err = $password_success = "";
 
 // 2. BUSCAR DADOS ATUAIS DO USUÁRIO
-// CORREÇÃO: Removida a coluna 'username' da query, pois não existe na tabela.
-$sql_select = "SELECT full_name, email, created_at FROM users WHERE id = ?";
+$sql_select = "SELECT full_name, email, date_of_birth, gender, phone_number, created_at FROM users WHERE id = ?";
 if ($stmt_select = $conn->prepare($sql_select)) {
     $stmt_select->bind_param("i", $user_id);
     if ($stmt_select->execute()) {
-        // CORREÇÃO: Removida a variável '$username' da bind_result.
-        $stmt_select->bind_result($full_name, $email, $date_created);
+        $stmt_select->bind_result($full_name, $email, $dateOfBirth, $gender, $phone_number, $date_created);
         $stmt_select->fetch();
-        $_SESSION["full_name"] = $full_name; // Atualiza sessão com nome completo, caso tenha sido mudado
+        $_SESSION["full_name"] = $full_name;
     }
     $stmt_select->close();
 } else {
-    // Erro crítico na recuperação de dados
     $profile_err = "Erro ao buscar dados do perfil. Tente novamente mais tarde.";
 }
 
-// 3. LÓGICA PARA ATUALIZAR NOME E EMAIL
+// 3. LÓGICA PARA ATUALIZAR NOME, EMAIL E CELULAR
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'update_profile') {
     $new_full_name = trim($_POST['full_name']);
     $new_email = trim($_POST['email']);
+    $new_dateOfBirth = trim($_POST['dateOfBirth']);
+    $new_gender = trim($_POST['gender']);
+    $new_phone_number = trim($_POST['phone_number']);
     
-    // Validação mínima
     if (empty($new_full_name) || empty($new_email)) {
         $profile_err = "Nome e Email não podem ser vazios.";
     } 
 
     if (empty($profile_err)) {
-        // Prepara a instrução UPDATE
-        $sql_update = "UPDATE users SET full_name = ?, email = ? WHERE id = ?";
+        $sql_update = "UPDATE users SET full_name = ?, email = ?, date_of_birth = ?, gender = ?, phone_number = ? WHERE id = ?";
         if ($stmt_update = $conn->prepare($sql_update)) {
-            $stmt_update->bind_param("ssi", $new_full_name, $new_email, $user_id);
+            $stmt_update->bind_param("sssssi", $new_full_name, $new_email, $new_dateOfBirth, $new_gender, $new_phone_number, $user_id);
             
             if ($stmt_update->execute()) {
                 $profile_success = "Perfil atualizado com sucesso!";
-                // Atualiza as variáveis PHP e de sessão
                 $full_name = $new_full_name;
                 $email = $new_email;
+                $dateOfBirth = $new_dateOfBirth;
+                $gender = $new_gender;
+                $phone_number = $new_phone_number;
                 $_SESSION["full_name"] = $full_name;
             } else {
-                // Verificação de erro, útil para debug (ex: email duplicado)
                 if ($conn->errno == 1062) { 
                     $profile_err = "O email fornecido já está em uso.";
                 } else {
@@ -67,12 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
 
 // 4. LÓGICA PARA ATUALIZAR SENHA
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'update_password') {
-    $current_password = $_POST['current_password'];
-    $new_password = $_POST['new_password'];
-    $confirm_password = $_POST['confirm_password'];
-
-    // Buscar hash da senha atual
-    $sql_pass = "SELECT password FROM users WHERE id = ?";
+    $sql_pass = "SELECT password_hash FROM users WHERE id = ?";
     $hash_password = "";
     if ($stmt_pass = $conn->prepare($sql_pass)) {
         $stmt_pass->bind_param("i", $user_id);
@@ -81,8 +75,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
         $stmt_pass->fetch();
         $stmt_pass->close();
     }
+    
+    $current_password = $_POST['current_password'];
+    $new_password = $_POST['new_password'];
+    $confirm_password = $_POST['confirm_password'];
 
-    if (!password_verify($current_password, $hash_password)) {
+    if (empty($hash_password) || !password_verify($current_password, $hash_password)) {
         $password_err = "A senha atual está incorreta.";
     } elseif (empty($new_password) || strlen($new_password) < 6) {
         $password_err = "A nova senha deve ter pelo menos 6 caracteres.";
@@ -92,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
 
     if (empty($password_err)) {
         $new_hash_password = password_hash($new_password, PASSWORD_DEFAULT);
-        $sql_update_pass = "UPDATE users SET password = ? WHERE id = ?";
+        $sql_update_pass = "UPDATE users SET password_hash = ? WHERE id = ?"; 
         
         if ($stmt_update_pass = $conn->prepare($sql_update_pass)) {
             $stmt_update_pass->bind_param("si", $new_hash_password, $user_id);
@@ -112,17 +110,14 @@ $primeiro_nome = explode(' ', $_SESSION["full_name"])[0];
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br"> 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil | FinanceFlow</title>
     <link rel="stylesheet" href="../public/css/dashboard-styles.css"> 
     <link rel="stylesheet" href="../public/css/profile-styles.css"> 
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <link href="https://unpkg.com/ionicons@5.5.2/dist/css/ionicons.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
 </head>
 <body>
     
@@ -167,11 +162,14 @@ $primeiro_nome = explode(' ', $_SESSION["full_name"])[0];
                         <div class="profile-picture-section">
                             <ion-icon name="person-circle" class="profile-avatar"></ion-icon>
                             <h2><?php echo htmlspecialchars($full_name); ?></h2>
-                            </div>
+                        </div>
                         
                         <div class="detail-group">
                             <h4>Detalhes da Conta</h4>
                             <p><strong>Email:</strong> <?php echo htmlspecialchars($email); ?></p>
+                            <p><strong>Celular:</strong> <?php echo htmlspecialchars($phone_number); ?></p>
+                            <p><strong>Nascimento:</strong> <?php echo date('d/m/Y', strtotime($dateOfBirth)); ?></p>
+                            <p><strong>Gênero:</strong> <?php echo htmlspecialchars($gender); ?></p>
                             <p><strong>Membro desde:</strong> <?php echo date('d/m/Y', strtotime($date_created)); ?></p>
                         </div>
                     </div>
@@ -187,7 +185,7 @@ $primeiro_nome = explode(' ', $_SESSION["full_name"])[0];
                         <?php endif; ?>
                         <?php if (!empty($profile_success)): ?>
                             <div class="alert success-message"><?php echo $profile_success; ?></div>
-                        <?php endif; ?>
+                        <?php endif; ?> 
 
                         <form action="profile.php" method="post" class="profile-form">
                             <input type="hidden" name="action" value="update_profile">
@@ -197,6 +195,19 @@ $primeiro_nome = explode(' ', $_SESSION["full_name"])[0];
 
                             <label for="email">Email</label>
                             <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
+
+                            <label for="phone_number">Telefone</label>
+                            <input type="tel" id="phone_number" name="phone_number" value="<?php echo htmlspecialchars($phone_number); ?>" placeholder="(99) 99999-9999">
+
+                            <label for="dateOfBirth">Data de Nascimento</label>
+                            <input type="date" id="dateOfBirth" name="dateOfBirth" value="<?php echo htmlspecialchars($dateOfBirth); ?>" required>
+
+                            <label for="gender">Gênero</label>
+                            <select id="gender" name="gender" required>
+                                <option value="feminino" <?php echo ($gender == 'feminino' ? 'selected' : ''); ?>>Feminino</option>
+                                <option value="masculino" <?php echo ($gender == 'masculino' ? 'selected' : ''); ?>>Masculino</option>
+                                <option value="outros" <?php echo ($gender == 'outros' ? 'selected' : ''); ?>>Outros</option>
+                            </select>
 
                             <button type="submit" class="btn-save-profile">Salvar Alterações</button>
                         </form>

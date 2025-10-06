@@ -87,10 +87,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <link href="https://unpkg.com/ionicons@5.5.2/dist/css/ionicons.min.css" rel="stylesheet">
 </head>
 <body class="register-body">
-    <header class="header">
-        <h1>Login</h1>
-    </header> 
-
+    
     <div class="split-content-wrapper">
         
         <div class="info-side-panel">
@@ -148,5 +145,44 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     </div>
                 </form>
             </div>
-        </div> </div> </body>
+        </div> 
+    </div> 
+
+        <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const body = document.body;
+
+            // Criar botão de dark mode (caso queira visível na tela de login)
+            const toggleBtn = document.createElement("button");
+            toggleBtn.innerHTML = "🌙";
+            toggleBtn.setAttribute("id", "dark-toggle");
+            document.body.appendChild(toggleBtn);
+
+            // Posiciona o botão
+            toggleBtn.style.position = "fixed";
+            toggleBtn.style.top = "15px";
+            toggleBtn.style.right = "15px";
+            toggleBtn.style.zIndex = "1000";
+            toggleBtn.style.padding = "10px 15px";
+            toggleBtn.style.borderRadius = "50%";
+            toggleBtn.style.border = "none";
+            toggleBtn.style.cursor = "pointer";
+            toggleBtn.style.background = "#333";
+            toggleBtn.style.color = "#fff";
+            toggleBtn.style.fontSize = "20px";
+
+            // Alternar dark mode
+            toggleBtn.addEventListener("click", () => {
+                body.classList.toggle("dark-mode");
+                localStorage.setItem("darkMode", body.classList.contains("dark-mode"));
+            });
+
+            // Restaurar preferência
+            if (localStorage.getItem("darkMode") === "true") {
+                body.classList.add("dark-mode");
+            }
+        });
+        </script>
+
+</body>
 </html>

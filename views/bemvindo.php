@@ -26,19 +26,36 @@ $chart_values = json_encode([100, 125, 90, 150, 180, 160]);
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <link href="https://unpkg.com/ionicons@5.5.2/dist/css/ionicons.min.css" rel="stylesheet">
 </head>
-<body class="bemvindo-body">
+<body class="bemvindo-body"> 
 
     <div class="landing-container">
         
         <header class="landing-header">
             <img src="../public/assets/logofianceflow.png" alt="Logo FinanceFlow" class="header-logo">
+
+            <nav class="main-nav">
+                <a href="#sobre" class="nav-link">Sobre</a>
+                <a href="#recursos" class="nav-link">Recursos</a>
+                <a href="#dicas" class="nav-link">Dicas</a>
+                <a href="#contato" class="nav-link">Suporte</a>
+            </nav>
+
+            <!-- 🔹 Acessibilidade -->
+            <div class="accessibility-tools">
+                <button id="increase-font" title="Aumentar Fonte"><ion-icon name="add-outline"></ion-icon></button>
+                <button id="decrease-font" title="Diminuir Fonte"><ion-icon name="remove-outline"></ion-icon></button>
+                <button id="toggle-dark" title="Ativar/Desativar Dark Mode"><ion-icon name="moon-outline"></ion-icon></button>
+                <button id="toggle-reader" title="Ativar/Desativar Leitor"><ion-icon name="volume-high-outline"></ion-icon></button>
+            </div>
+
             <div class="auth-buttons">
                 <a href="login.php" class="btn-login-header">Entrar</a>
                 <a href="register.php" class="btn-register-header">Começar Agora!</a>
             </div>
         </header>
 
-        <section class="main-hero-section">
+
+        <section id="sobre" class="main-hero-section">
             <div class="hero-text">
                 <h1>Seu Futuro Financeiro Começa Aqui e Agora.</h1>
                 <p>O FinanceFlow é a sua plataforma completa para visualizar, planejar e conquistar a estabilidade financeira. Transforme incertezas em controle com nossas ferramentas digitais.</p>
@@ -56,7 +73,7 @@ $chart_values = json_encode([100, 125, 90, 150, 180, 160]);
             </div>
         </section>
         
-        <section class="value-proposition-section">
+        <section id="recursos" class="value-proposition-section">
             <h2>Por Que Você Precisa do FinanceFlow?</h2>
             
             <div class="three-column-grid">
@@ -80,7 +97,7 @@ $chart_values = json_encode([100, 125, 90, 150, 180, 160]);
             </div>
         </section>
 
-        <section class="dicas-section">
+        <section id="dicas" class="dicas-section">
             <h2>3 Dicas para sua Estabilidade Financeira</h2>
             
             <div class="three-column-grid">
@@ -110,10 +127,18 @@ $chart_values = json_encode([100, 125, 90, 150, 180, 160]);
             </div>
         </section>
 
-        <footer class="landing-footer">
-            <p>&copy; <?php echo date('Y'); ?> FinanceFlow. Controle Hoje, Conquiste Amanhã. | <a href="support.php">Suporte</a> | <a href="settings.php">Privacidade</a></p>
+        <footer id="contato" class="landing-footer">
+            <div class="footer-links">
+                <a href="support.php" class="footer-link">Ajuda e Suporte</a>
+                <a href="settings.php" class="footer-link">Termos e Privacidade</a>
+                <a href="#recursos" class="footer-link">Recursos do App</a>
+                <a href="login.php" class="footer-link">Acesso para Clientes</a>
+            </div>
+            <p class="copyright-text">
+                &copy; <?php echo date('Y'); ?> **FinanceFlow**. Todos os direitos reservados.
+                <br>Controle Hoje, Conquiste Amanhã.
+            </p>
         </footer>
-
     </div>
 
     <script>
@@ -157,5 +182,53 @@ $chart_values = json_encode([100, 125, 90, 150, 180, 160]);
             });
         }
     </script>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            let fontSize = 100;
+            const body = document.body;
+            const readerBtn = document.getElementById("toggle-reader");
+            let reading = false;
+            let synth = window.speechSynthesis;
+
+            // Aumentar Fonte
+            document.getElementById("increase-font").addEventListener("click", () => {
+                fontSize += 10;
+                body.style.fontSize = fontSize + "%";
+            });
+
+            // Diminuir Fonte
+            document.getElementById("decrease-font").addEventListener("click", () => {
+                if (fontSize > 50) {
+                    fontSize -= 10;
+                    body.style.fontSize = fontSize + "%";
+                }
+            });
+
+            // Dark Mode
+            document.getElementById("toggle-dark").addEventListener("click", () => {
+                body.classList.toggle("dark-mode");
+            });
+
+            // Leitor de Texto (Text-to-Speech)
+            readerBtn.addEventListener("click", () => {
+                if (!reading) {
+                    const text = document.body.innerText;
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.lang = "pt-BR";
+                    synth.speak(utterance);
+                    reading = true;
+
+                    utterance.onend = () => {
+                        reading = false;
+                    };
+                } else {
+                    synth.cancel();
+                    reading = false;
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>

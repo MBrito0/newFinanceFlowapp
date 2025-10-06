@@ -1,6 +1,6 @@
 /* Adaptação do SCSS de login.page.scss para Layout SPLIT-SCREEN Desktop/Tecnológico */
 
-:root {
+:root { 
     --primary-blue: #115bda;      /* Azul Principal */
     --accent-blue-cta: #104baa;   /* Azul de Ação/Destaque */
     --background-blue: #e0f2ff;   /* Fundo suave da página */
@@ -9,9 +9,9 @@
     --text-light: #555;
     --shadow-blue-strong: rgba(16, 75, 170, 0.5);
 }
-
+ 
 body {
-    background-color: var(--background-blue); 
+    background: radial-gradient(circle, #9cc4ef, #7fa7e2, #587bed, #7196e1, #4538fb, #4b69ff, #3628ff);
     font-family: 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -56,7 +56,7 @@ body {
 
 .info-side-panel {
     flex: 1; 
-    background: linear-gradient(135deg, var(--primary-blue), #0c3394); /* Gradiente forte de azul */
+    background: linear-gradient(135deg, var(--primary-blue), #0f46d0); /* Gradiente forte de azul */
     color: white;
     padding: 40px;
     display: flex;
@@ -206,6 +206,83 @@ body {
 .btn-login:hover {
     background-color: #0c3394;
 }
+
+/* =============================== */
+/* DARK MODE LOGIN PAGE            */
+/* =============================== */
+body.dark-mode {
+    background: #0f0f0f; 
+    color: #e0e0e0;
+}
+
+/* Painel principal */
+body.dark-mode .split-content-wrapper {
+    background-color: #1e1e1e;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+/* Painel lateral */
+body.dark-mode .info-side-panel {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #f1f1f1;
+}
+body.dark-mode .info-item p {
+    color: #d1d5db;
+}
+body.dark-mode .btn-side-register {
+    background-color: #2d3748;
+    color: #f1f1f1;
+}
+body.dark-mode .btn-side-register:hover {
+    background-color: #4a5568;
+}
+
+/* Painel do formulário */
+body.dark-mode .form-container {
+    background-color: transparent;
+}
+body.dark-mode .form-block h2 {
+    color: #f1f1f1;
+}
+body.dark-mode .input-group label {
+    color: #e0e0e0;
+}
+body.dark-mode .form-input {
+    background-color: #2d2d2d;
+    color: #f1f1f1;
+    border: 1px solid #444;
+}
+body.dark-mode .form-input:focus {
+    border-color: #4a90e2;
+    background-color: #1e1e1e;
+}
+
+/* Links */
+body.dark-mode .forgot-password a {
+    color: #4a90e2;
+}
+
+/* Botão Login */
+body.dark-mode .btn-login {
+    background-color: #2563eb;
+    color: #fff;
+}
+body.dark-mode .btn-login:hover {
+    background-color: #1e40af;
+}
+
+/* Mensagens */
+body.dark-mode .error-message {
+    background-color: #3f1d1d;
+    color: #fca5a5;
+    border: 1px solid #b91c1c;
+}
+body.dark-mode .success-message {
+    background-color: #1e3a2f;
+    color: #a7f3d0;
+    border: 1px solid #10b981;
+}
+
 
 /* Mensagens de Feedback */
 .alert { padding: 15px; margin-bottom: 20px; border-radius: 8px; font-weight: bold; }
