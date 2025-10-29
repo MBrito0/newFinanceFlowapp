@@ -2,13 +2,25 @@
 // Inclui a configuração para iniciar a sessão e a conexão com o banco de dados
 require_once __DIR__ . '/../includes/config.php';
 
+// --- INÍCIO DO BLOCO DE SEGURANÇA ---
+
 // 1. VERIFICAÇÃO DE SESSÃO: Garante que o usuário esteja logado.
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
     exit;
 } 
 
-// 2. BUSCA DE DADOS: Simulação de dados (Estes viriam do MySQL no futuro)
+// 2. VERIFICAÇÃO 2FA: Garante que o usuário completou a segunda etapa de segurança.
+// Acesso é permitido somente se o login e o 2FA foram concluídos com sucesso.
+if (!isset($_SESSION['2fa_verified']) || $_SESSION['2fa_verified'] !== true) {
+    // Redireciona o usuário para a tela 2FA para concluir o processo de login
+    header("location: 2fa.php");
+    exit;
+}
+
+// --- FIM DO BLOCO DE SEGURANÇA ---
+
+// 3. BUSCA DE DADOS: Simulação de dados (Estes viriam do MySQL no futuro)
 // Valores baseados em dashboard.page.html e dashboard.page.ts
 $nome_completo = isset($_SESSION["full_name"]) ? $_SESSION["full_name"] : "Usuário";
 $primeiro_nome = explode(' ', $nome_completo)[0]; 

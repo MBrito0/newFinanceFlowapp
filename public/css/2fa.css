@@ -1,0 +1,80 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #121212;
+  color: #f1f1f1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  transition: background 0.3s, color 0.3s;
+}
+
+.container {
+  background: #1e1e1e;
+  border-radius: 12px;
+  padding: 30px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+  text-align: center;
+  color: #00bcd4;
+}
+
+.input-field, select {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: none;
+  background: #2c2c2c;
+  color: #fff;
+}
+
+.btn {
+  width: 100%;
+  background: #00bcd4;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  background: #0097a7;
+}
+
+.accessibility {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.accessibility button {
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  margin: 0 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.accessibility button:hover {
+  background: #00bcd4;
+}
+
+body.light {
+  background: #f1f1f1;
+  color: #111;
+}
+
+body.light .container {
+  background: #fff;
+  color: #111;
+}
