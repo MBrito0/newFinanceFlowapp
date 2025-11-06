@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['send_code'])) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Verificação 2FA - FinanceFlow</title>
-<link rel="stylesheet" href="2fa.css">
+<link rel="stylesheet" href="../public/css/2fa.css">
 </head>
 <body>
 <div class="container">
