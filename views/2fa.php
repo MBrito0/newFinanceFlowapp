@@ -3,7 +3,7 @@ require_once __DIR__ . '/../includes/config.php';
 
 // Garante que o usuário esteja logado
 if (!isset($_SESSION['id']) || !isset($_SESSION['2fa_pending'])) {
-    header("Location: /Projeto_AWS/newFinanceFlowapp/views/login.php");
+    header("Location: /newFinanceFlowapp/views/login.php");
     exit;
 }
 
