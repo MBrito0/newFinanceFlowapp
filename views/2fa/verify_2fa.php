@@ -3,7 +3,7 @@ include '../includes/config.php';
 
 // Verifica se o usuário está logado
 if (!isset($_SESSION['user_id'])) {
-  header("Location: /Projeto_AWS/newFinanceFlowapp/views/login.php");
+  header("Location: /newFinanceFlowapp/views/login.php");
   exit;
 }
 
@@ -21,14 +21,14 @@ $stmt->close();
 
 // Nenhum código encontrado
 if (!$row) {
-  header("Location: /Projeto_AWS/newFinanceFlowapp/2fa/2fa.php?error=notfound");
+  header("Location: /newFinanceFlowapp/2fa/2fa.php?error=notfound");
   exit;
 }
 
 // Código expirado
 if (time() > strtotime($row['expires_at'])) {
   $conn->query("DELETE FROM two_factor_codes WHERE user_id = $user_id");
-  header("Location: /Projeto_AWS/newFinanceFlowapp/2fa/2fa.php?error=expired");
+  header("Location: /newFinanceFlowapp/2fa/2fa.php?error=expired");
   exit;
 }
 
@@ -38,11 +38,11 @@ if (password_verify($code_input, $row['code_hash'])) {
   $_SESSION['2fa_verified'] = true;
 
   // ✅ Redireciona para o dashboard
-  header("Location: /Projeto_AWS/newFinanceFlowapp/dashboard.php");
+  header("Location: /newFinanceFlowapp/dashboard.php");
   exit;
 } else {
   // Código incorreto
   $conn->query("UPDATE two_factor_codes SET attempts = attempts + 1 WHERE id = {$row['id']}");
-  header("Location: /Projeto_AWS/newFinanceFlowapp/2fa/2fa.php?error=invalid");
+  header("Location: /newFinanceFlowapp/2fa/2fa.php?error=invalid");
   exit;
 }
