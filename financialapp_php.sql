@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17/11/2025 às 23:57
+-- Tempo de geração: 27/11/2025 às 18:45
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -38,20 +38,6 @@ CREATE TABLE `accounts` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Despejando dados para a tabela `accounts`
---
-
-INSERT INTO `accounts` (`id`, `user_id`, `name`, `balance`, `type`, `currency`, `created_at`, `updated_at`) VALUES
-(5, 6, 'Santander', 5000.00, 'Banco Digital', 'BRL', '2025-10-02 17:52:49', '2025-10-02 17:52:49'),
-(6, 6, 'Bradesco', 2250.00, 'Banco Digital', 'BRL', '2025-10-02 17:54:00', '2025-10-02 18:01:50'),
-(7, 6, 'Nubank', -820.78, 'Banco Digital', 'BRL', '2025-10-02 17:54:33', '2025-10-02 18:53:53'),
-(8, 6, 'XP Investimentos', 500.00, 'Investimentos', 'BRL', '2025-10-02 17:58:22', '2025-10-02 17:58:22'),
-(11, 6, 'r2m bank', 50.00, 'Banco Digital', 'BRL', '2025-10-02 22:10:35', '2025-10-02 22:11:16'),
-(12, 6, 'XP Investimentos', 500.00, 'Investimentos', 'BRL', '2025-10-02 22:23:31', '2025-10-02 22:23:44'),
-(13, 13, 'Bradesco', 4150.00, 'Banco Tradicional', 'BRL', '2025-10-03 17:42:00', '2025-10-03 17:43:13'),
-(14, 13, 'Santander', 4000.00, 'Banco Digital', 'BRL', '2025-10-03 17:42:30', '2025-10-03 17:42:30');
-
 -- --------------------------------------------------------
 
 --
@@ -68,14 +54,32 @@ CREATE TABLE `goals` (
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Despejando dados para a tabela `goals`
+-- Estrutura para tabela `password_resets`
 --
 
-INSERT INTO `goals` (`id`, `user_id`, `name`, `target_value`, `deadline_type`, `current_progress`, `created_at`) VALUES
-(12, 6, 'Consertar parede do quarto', 220.00, 'semanal', 0.00, '2025-10-01 13:22:48'),
-(14, 6, 'Nova casa', 350000.00, 'anual', 0.00, '2025-10-02 19:12:04'),
-(15, 13, 'Comprar um carro', 5000.00, 'semanal', 0.00, '2025-10-03 14:45:07');
+CREATE TABLE `password_resets` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `expires_at` datetime NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `password_resets`
+--
+
+INSERT INTO `password_resets` (`id`, `user_id`, `token`, `expires_at`, `created_at`) VALUES
+(1, 17, '59d3b1804f569787057da86ef35db0a01ef4df1d227cadd43c6157b11f872a13', '2025-11-27 18:20:01', '2025-11-27 16:20:01'),
+(2, 17, '015e68e58b11f67ebd72c6ec06a766bf123f181abaff8d783e5f61102efad5e4', '2025-11-27 18:21:25', '2025-11-27 16:21:25'),
+(3, 17, 'e1d6a8fd1a9955ed4ecb00c6b9205892ea19e815073e0d5496fbc15fe4d2c143', '2025-11-27 18:21:29', '2025-11-27 16:21:29'),
+(4, 17, 'ba2ebd9eed3e1ec4fccbdabaa1b0c10984181a1ff2eae0113626263a82cbb114', '2025-11-27 18:49:34', '2025-11-27 16:49:34'),
+(5, 17, '4e261159be49a54e0b684529eab6b14af57fadca8c6a22489bc702e343a3877b', '2025-11-27 18:53:18', '2025-11-27 16:53:18'),
+(6, 17, '2fa0d6a31166aaf636f934e1de5eeaeee9d65e0bc9e92e5b43eb1db1b535415a', '2025-11-27 19:01:45', '2025-11-27 17:01:45'),
+(7, 18, '87964071743ec9cf3eeeb09460d9bbf0fa9627155213c200f1c988137f711cb1', '2025-11-27 19:04:18', '2025-11-27 17:04:18');
 
 -- --------------------------------------------------------
 
@@ -94,16 +98,6 @@ CREATE TABLE `transactions` (
   `transaction_date` date NOT NULL,
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Despejando dados para a tabela `transactions`
---
-
-INSERT INTO `transactions` (`id`, `user_id`, `account_id`, `description`, `amount`, `type`, `category`, `transaction_date`, `created_at`) VALUES
-(1, 6, 6, 'Reserva de emergência', 500.00, 'Receita', 'Investimentos', '2025-10-02', '2025-10-02 15:01:50'),
-(2, 6, 7, 'Conta de luz', -560.00, 'Despesa', 'Moradia', '2025-09-26', '2025-10-02 15:53:53'),
-(3, 6, 11, 'Conta de luz', -50.00, 'Despesa', 'Moradia', '2025-10-03', '2025-10-02 19:11:16'),
-(4, 13, 13, 'Conta de luz', -850.00, 'Despesa', 'Moradia', '2025-10-03', '2025-10-03 14:43:13');
 
 -- --------------------------------------------------------
 
@@ -141,7 +135,7 @@ CREATE TABLE `users` (
   `role` enum('usuario','admin') DEFAULT 'usuario',
   `password_reset_token` varchar(255) DEFAULT NULL,
   `token_expires` datetime DEFAULT NULL,
-  `is_2fa_enabled` tinyint(1) NOT NULL DEFAULT 0
+  `is_2fa_enabled` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -149,14 +143,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `full_name`, `email`, `password_hash`, `date_of_birth`, `gender`, `created_at`, `phone_number`, `last_login`, `status`, `role`, `password_reset_token`, `token_expires`, `is_2fa_enabled`) VALUES
-(6, 'Lorrayne Ramos Da Silva', 'lorrayne.ramosdasilva@gmail.com', '$2y$10$RGJAEVn7gBAcWPbizPwG3uXl20MwaH4EYORKhajf.ViykW.zkr102', '2005-02-17', 'feminino', '2025-10-01 13:19:10', '21993645772', NULL, 'ativo', 'usuario', NULL, NULL, 0),
-(7, 'Lorrayne Ramos Da Silva', 'lramosoffice0@gmail.com', '$2y$10$4pUcZ.ycx0sO4INtmNSo6OOtoCzxMLtxvxHSMrkgQsHgpmD2J9i/y', '2005-02-17', 'feminino', '2025-10-01 14:58:14', NULL, NULL, 'ativo', 'usuario', NULL, NULL, 0),
-(8, 'Emanuella Brito', 'manubrito322@gmail.com', '$2y$10$d2maa0G2EUET2EecR.2JA.EzRVRtMoU12/Kyf0fPRlcWCdEoxCFsW', '1999-03-19', 'feminino', '2025-10-01 18:49:49', NULL, NULL, 'ativo', 'usuario', NULL, NULL, 0),
-(9, 'Papagaio Web', 'papagaio@gmail.com', '$2y$10$XbD5gVtgzj3aFIGhq.o0CuOaCEaekZswP2m.p.RPkWKkJcvvWmX/W', '1590-02-13', 'masculino', '2025-10-01 19:25:55', NULL, NULL, 'ativo', 'usuario', NULL, NULL, 0),
-(11, 'RONDINELLI DA SILVA', 'rondinellisilva433@gmail.com', '$2y$10$mre1ySWUyYyIL1UEahg7FuI.5F.ZPk7da18SpS52zhoe9gQM.mRmS', '1973-09-14', 'masculino', '2025-10-02 15:28:56', '(21) 98022-6535', NULL, 'ativo', 'usuario', NULL, NULL, 0),
-(12, 'Rafael Monteiro', 'profrafaelribeiro@gmail.com', '$2y$10$GC/UTlQsoUpYfETi2P9myuOYagCnBMGCkrdyZ/aw8t99tN/ak65B2', '1977-01-06', 'masculino', '2025-10-02 18:57:48', '(21) 99540-6867', NULL, 'ativo', 'usuario', NULL, NULL, 0),
-(13, 'Rondinelli da Silva', 'ronnyy123@hotmail.com', '$2y$10$7.htQZCC6lj57oT7T3VFM.P5nENyy9RERWo8A7ayO2Z/ZX8HYMsca', '1973-09-14', 'masculino', '2025-10-03 14:38:02', '(21) 98022-6535', NULL, 'ativo', 'usuario', NULL, NULL, 0),
-(15, 'Romario Gonzaga', 'romariogonzaga2018@gmail.com', '$2y$10$zBcEwvz1WYC3hvUj/X2vYORKiwcGHHJgftoFzShX4RrOMmX3fUnnq', '2004-04-14', 'masculino', '2025-10-22 20:13:36', '(21) 97921-1842', NULL, 'ativo', 'usuario', NULL, NULL, 1);
+(17, 'Lorrayne Ramos Da Silva', 'lorrayne.ramosdasilva@gmail.com', '$2y$10$4MMTTAkcnvgnynJvhso8R.Chkid1Y/8WgBLawK/SdpazPEHwIjBJW', '2005-02-17', 'feminino', '2025-11-14 12:43:50', '(21) 99364-5772', NULL, 'ativo', 'usuario', NULL, NULL, 1),
+(18, 'RONDINELLI DA SILVA', 'ronnyy123@hotmail.com', '$2y$10$n00umglLjTrfQPcxqsACnOQH8T27rxwWUevMeZQAzFjSuMVo9MphK', '1973-09-14', 'masculino', '2025-11-14 14:43:05', '(21) 98022-6535', NULL, 'ativo', 'usuario', NULL, NULL, 1),
+(21, 'Emanuella Brito', 'manubrito322@gmail.com', '$2y$10$Q3tZcAtPIXmILbETRezkvO76xt/Zhp0j4aC/l.21GH.xz5gXSmg2u', '2000-06-20', 'feminino', '2025-11-26 23:55:47', '(21) 96710-2084', NULL, 'ativo', 'usuario', NULL, NULL, 1),
+(22, 'Nicoly Reis do Nascimento', 'nicknascimento15@gmail.com', '$2y$10$lwW8K.cjpaPNIiyOh50SRuvJWv5g5FDjkUBIZ.Q85dOLg0GdV1rxW', '1996-08-15', 'feminino', '2025-11-26 23:58:03', '(21) 98733-6584', NULL, 'ativo', 'usuario', NULL, NULL, 1),
+(23, 'Maria do Carmo', 'carmomaria@gmail.com', '$2y$10$4eiUeLXJj9JYO3mIZOK5qOw55pL8lP0Q8V0.3.HNLmoV9OOhaA8iS', '1987-12-25', 'feminino', '2025-11-27 00:05:36', '(21) 99456-2075', NULL, 'ativo', 'usuario', NULL, NULL, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -177,19 +168,18 @@ ALTER TABLE `goals`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Índices de tabela `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Índices de tabela `transactions`
 --
 ALTER TABLE `transactions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_id` (`user_id`),
   ADD KEY `account_id` (`account_id`);
-
---
--- Índices de tabela `two_factor_codes`
---
-ALTER TABLE `two_factor_codes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
 
 --
 -- Índices de tabela `users`
@@ -206,13 +196,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de tabela `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `goals`
 --
 ALTER TABLE `goals`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT de tabela `password_resets`
+--
+ALTER TABLE `password_resets`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de tabela `transactions`
@@ -221,16 +217,10 @@ ALTER TABLE `transactions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT de tabela `two_factor_codes`
---
-ALTER TABLE `two_factor_codes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Restrições para tabelas despejadas
@@ -254,12 +244,6 @@ ALTER TABLE `goals`
 ALTER TABLE `transactions`
   ADD CONSTRAINT `transactions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `transactions_ibfk_2` FOREIGN KEY (`account_id`) REFERENCES `accounts` (`id`) ON DELETE SET NULL;
-
---
--- Restrições para tabelas `two_factor_codes`
---
-ALTER TABLE `two_factor_codes`
-  ADD CONSTRAINT `two_factor_codes_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

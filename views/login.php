@@ -8,7 +8,7 @@ require_once __DIR__ . '/../includes/config.php';
 $email = $password = "";
 $email_err = $password_err = $login_err = "";
 $success_msg = "";
-
+ 
 // Verifica se há mensagem de sucesso vinda do cadastro
 if (isset($_GET['success']) && $_GET['success'] === 'registered') {
     $success_msg = "Cadastro realizado com sucesso! Faça seu login.";
@@ -51,7 +51,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["email"] = $email;
-                            $_SESSION["full_name"] = $full_name;
+                            $_SESSION["full_name"] = $full_name; 
 
                             // === LÓGICA DE REDIRECIONAMENTO 2FA ===
                             if ($is_2fa_enabled == 1) { 

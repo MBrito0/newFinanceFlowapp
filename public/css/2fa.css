@@ -1,80 +1,135 @@
+/* ========== ESTILO GERAL ========== */
+
 body {
-  font-family: 'Poppins', sans-serif;
-  background-color: #121212;
-  color: #f1f1f1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  transition: background 0.3s, color 0.3s;
+    font-family: 'Poppins', sans-serif;
+    background: #1c73ff;
+    margin: 0;
+    padding: 0; 
+    transition: background 0.3s, color 0.3s;
 }
 
 .container {
-  background: #1e1e1e;
-  border-radius: 12px;
-  padding: 30px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 420px;
+    margin: 50px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.15);
+    transition: background 0.3s, color 0.3s;
 }
 
 h2 {
-  text-align: center;
-  color: #00bcd4;
+    text-align: center;
+    color: #008cba;
 }
 
-.input-field, select {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 6px;
-  border: none;
-  background: #2c2c2c;
-  color: #fff;
+.input-field {
+    width: 100%;
+    height: 46px; /* <-- Fixando altura igual */
+    box-sizing: border-box; /* <-- Garante tamanho consistente */
+    padding: 10px 12px;
+    margin: 10px 0 20px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    appearance: none; /* <-- Faz SELECT e INPUT ficarem iguais */
+    transition: background 0.3s, color 0.3s, border 0.3s;
 }
+
 
 .btn {
-  width: 100%;
-  background: #00bcd4;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 10px;
-  cursor: pointer;
-  margin-top: 10px;
+    width: 100%;
+    padding: 12px;
+    background-color: #1c73ff;
+    border: none;
+    color: #000;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: opacity 0.3s;
 }
 
 .btn:hover {
-  background: #0097a7;
+    opacity: 0.8;
 }
 
+.divider {
+    margin: 20px 0;
+    border: none;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Timer */
+#timer {
+    margin: -5px 0 15px 0;
+    font-size: 14px;
+}
+
+/* Acessibilidade */
 .accessibility {
-  margin-top: 20px;
-  text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
 }
 
 .accessibility button {
-  background: #333;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  margin: 0 5px;
-  padding: 8px 12px;
-  cursor: pointer;
-  font-size: 16px;
+    padding: 10px;
+    border: none;
+    background: #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s, color 0.3s;
 }
 
 .accessibility button:hover {
-  background: #00bcd4;
+    background: #ccc;
 }
 
-body.light {
-  background: #f1f1f1;
-  color: #111;
+
+/* ==========================================
+                DARK MODE
+========================================== */
+
+body.dark-mode {
+    background-color: #0d0d0d !important;
+    color: #f1f1f1 !important;
 }
 
-body.light .container {
-  background: #fff;
-  color: #111;
+body.dark-mode .container {
+    background: #1a1a1a !important;
+    color: #f1f1f1 !important;
+    box-shadow: 0 0 12px rgba(255,255,255,0.05);
+}
+
+body.dark-mode h2 {
+    color: #00e5ff !important;
+}
+
+body.dark-mode .input-field {
+    background: #2b2b2b !important;
+    color: #fff !important;
+    border: 1px solid #555 !important;
+}
+
+body.dark-mode .btn {
+    background: #00e5ff !important;
+    color: #000 !important;
+}
+
+body.dark-mode .divider {
+    border-color: #444 !important;
+}
+
+body.dark-mode #timer,
+body.dark-mode #countdown {
+    color: #f1f1f1 !important;
+}
+
+body.dark-mode .accessibility button {
+    background: #333 !important;
+    color: #fff !important;
 }
