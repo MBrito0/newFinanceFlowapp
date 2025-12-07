@@ -57,6 +57,7 @@ if (isset($_GET['action'])) {
                 <li><a href="settings.php" class="menu-item"><ion-icon name="settings-outline"></ion-icon> Configurações</a></li>
                 <li><a href="support.php" class="menu-item active"><ion-icon name="help-circle-outline"></ion-icon> Suporte</a></li>
                 <li><a href="bot.php" class="menu-item"><ion-icon name="robot-outline"></ion-icon> FinanceBot</a></li>
+
             </ul>
             
             <a href="logout.php" class="btn-logout"><ion-icon name="log-out-outline"></ion-icon> Sair</a>

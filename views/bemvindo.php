@@ -19,7 +19,6 @@ $chart_values = json_encode([100, 125, 90, 150, 180, 160]);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bem-Vindo | FinanceFlow - Controle sua Vida Financeira</title>
-    
     <link rel="stylesheet" href="../public/css/bemvindo-styles.css"> 
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>

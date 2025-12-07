@@ -2,6 +2,7 @@
 // Inclui a configuração para iniciar a sessão e a conexão com o banco de dados
 require_once __DIR__ . '/../includes/config.php';
 
+
 // 1. VERIFICAÇÃO DE SESSÃO E VARIÁVEIS INICIAIS
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: login.php");
@@ -140,6 +141,7 @@ $primeiro_nome = explode(' ', $_SESSION["full_name"])[0];
                 <li><a href="settings.php" class="menu-item"><ion-icon name="settings-outline"></ion-icon> Configurações</a></li>
                 <li><a href="support.php" class="menu-item"><ion-icon name="help-circle-outline"></ion-icon> Suporte</a></li>
                 <li><a href="bot.php" class="menu-item"><ion-icon name="robot-outline"></ion-icon> FinanceBot</a></li>
+
             </ul>
             
             <a href="logout.php" class="btn-logout"><ion-icon name="log-out-outline"></ion-icon> Sair</a>
@@ -213,31 +215,6 @@ $primeiro_nome = explode(' ', $_SESSION["full_name"])[0];
                         </form>
                     </div>
 
-                    <div class="profile-card">
-                        <h2>Alterar Senha</h2>
-                        
-                        <?php if (!empty($password_err)): ?>
-                            <div class="alert error-message"><?php echo $password_err; ?></div>
-                        <?php endif; ?>
-                        <?php if (!empty($password_success)): ?>
-                            <div class="alert success-message"><?php echo $password_success; ?></div>
-                        <?php endif; ?>
-
-                        <form action="profile.php" method="post" class="profile-form">
-                            <input type="hidden" name="action" value="update_password">
-                            
-                            <label for="current_password">Senha Atual</label>
-                            <input type="password" id="current_password" name="current_password" required>
-
-                            <label for="new_password">Nova Senha</label>
-                            <input type="password" id="new_password" name="new_password" required>
-
-                            <label for="confirm_password">Confirmar Nova Senha</label>
-                            <input type="password" id="confirm_password" name="confirm_password" required>
-
-                            <button type="submit" class="btn-change-password">Alterar Senha</button>
-                        </form>
-                    </div>
                 </div>
 
             </div>

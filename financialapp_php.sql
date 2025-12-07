@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 27/11/2025 às 18:45
+-- Tempo de geração: 05/12/2025 às 00:16
 -- Versão do servidor: 10.4.32-MariaDB
 -- Versão do PHP: 8.2.12
 
@@ -38,6 +38,16 @@ CREATE TABLE `accounts` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Despejando dados para a tabela `accounts`
+--
+
+INSERT INTO `accounts` (`id`, `user_id`, `name`, `balance`, `type`, `currency`, `created_at`, `updated_at`) VALUES
+(18, 25, 'XP Investimentos', 5000.00, 'Cartão de Crédito', 'BRL', '2025-12-03 00:06:19', '2025-12-03 00:06:19'),
+(19, 25, 'Santander', 9160.00, 'Banco Tradicional', 'BRL', '2025-12-03 00:07:18', '2025-12-03 00:12:03'),
+(20, 25, 'Bradesco', -150.00, 'Investimentos', 'BRL', '2025-12-03 00:07:41', '2025-12-03 00:07:41'),
+(21, 25, 'Nubank', 29430.00, 'Banco Digital', 'BRL', '2025-12-03 00:08:14', '2025-12-03 00:10:25');
+
 -- --------------------------------------------------------
 
 --
@@ -53,6 +63,13 @@ CREATE TABLE `goals` (
   `current_progress` decimal(10,2) DEFAULT 0.00,
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `goals`
+--
+
+INSERT INTO `goals` (`id`, `user_id`, `name`, `target_value`, `deadline_type`, `current_progress`, `created_at`) VALUES
+(17, 25, 'Nova casa', 500000.00, 'anual', 0.00, '2025-12-02 21:21:03');
 
 -- --------------------------------------------------------
 
@@ -79,7 +96,8 @@ INSERT INTO `password_resets` (`id`, `user_id`, `token`, `expires_at`, `created_
 (4, 17, 'ba2ebd9eed3e1ec4fccbdabaa1b0c10984181a1ff2eae0113626263a82cbb114', '2025-11-27 18:49:34', '2025-11-27 16:49:34'),
 (5, 17, '4e261159be49a54e0b684529eab6b14af57fadca8c6a22489bc702e343a3877b', '2025-11-27 18:53:18', '2025-11-27 16:53:18'),
 (6, 17, '2fa0d6a31166aaf636f934e1de5eeaeee9d65e0bc9e92e5b43eb1db1b535415a', '2025-11-27 19:01:45', '2025-11-27 17:01:45'),
-(7, 18, '87964071743ec9cf3eeeb09460d9bbf0fa9627155213c200f1c988137f711cb1', '2025-11-27 19:04:18', '2025-11-27 17:04:18');
+(7, 18, '87964071743ec9cf3eeeb09460d9bbf0fa9627155213c200f1c988137f711cb1', '2025-11-27 19:04:18', '2025-11-27 17:04:18'),
+(13, 17, 'c2da5ce77c6e5ee5ee8b414ea4f18478d6a1839434a3cf96246b7c454ef7c2b6', '2025-11-28 21:09:28', '2025-11-28 19:09:28');
 
 -- --------------------------------------------------------
 
@@ -98,6 +116,14 @@ CREATE TABLE `transactions` (
   `transaction_date` date NOT NULL,
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `user_id`, `account_id`, `description`, `amount`, `type`, `category`, `transaction_date`, `created_at`) VALUES
+(5, 25, 21, 'Pagamento de boleto atrasado', -2570.00, 'Despesa', 'Investimentos', '2025-12-03', '2025-12-02 21:10:25'),
+(6, 25, 19, 'Conta de luz', 200.00, 'Receita', 'Moradia', '2025-06-12', '2025-12-02 21:12:03');
 
 -- --------------------------------------------------------
 
@@ -143,11 +169,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `full_name`, `email`, `password_hash`, `date_of_birth`, `gender`, `created_at`, `phone_number`, `last_login`, `status`, `role`, `password_reset_token`, `token_expires`, `is_2fa_enabled`) VALUES
-(17, 'Lorrayne Ramos Da Silva', 'lorrayne.ramosdasilva@gmail.com', '$2y$10$4MMTTAkcnvgnynJvhso8R.Chkid1Y/8WgBLawK/SdpazPEHwIjBJW', '2005-02-17', 'feminino', '2025-11-14 12:43:50', '(21) 99364-5772', NULL, 'ativo', 'usuario', NULL, NULL, 1),
-(18, 'RONDINELLI DA SILVA', 'ronnyy123@hotmail.com', '$2y$10$n00umglLjTrfQPcxqsACnOQH8T27rxwWUevMeZQAzFjSuMVo9MphK', '1973-09-14', 'masculino', '2025-11-14 14:43:05', '(21) 98022-6535', NULL, 'ativo', 'usuario', NULL, NULL, 1),
+(17, 'Lorrayne Ramos Da Silva', 'lorrayne.ramosdasilva@gmail.com', '$2y$10$0KideApxRUfRN4Xpqi8VJOeUruAp05qeDwnK7glModrbC52BQn7c.', '2005-02-17', 'feminino', '2025-11-14 12:43:50', '(21) 99364-5772', NULL, 'ativo', 'usuario', NULL, NULL, 1),
+(18, 'Rondinelli da Silva', 'ronnyy123@hotmail.com', '$2y$10$7Xc6EKwCjnuJD/cGgh3zLOo2w/MSZS6ujObzp/97NwwS40YSTcQvq', '1973-09-14', 'masculino', '2025-11-14 14:43:05', '(21) 98022-6535', NULL, 'ativo', 'admin', NULL, NULL, 1),
 (21, 'Emanuella Brito', 'manubrito322@gmail.com', '$2y$10$Q3tZcAtPIXmILbETRezkvO76xt/Zhp0j4aC/l.21GH.xz5gXSmg2u', '2000-06-20', 'feminino', '2025-11-26 23:55:47', '(21) 96710-2084', NULL, 'ativo', 'usuario', NULL, NULL, 1),
 (22, 'Nicoly Reis do Nascimento', 'nicknascimento15@gmail.com', '$2y$10$lwW8K.cjpaPNIiyOh50SRuvJWv5g5FDjkUBIZ.Q85dOLg0GdV1rxW', '1996-08-15', 'feminino', '2025-11-26 23:58:03', '(21) 98733-6584', NULL, 'ativo', 'usuario', NULL, NULL, 1),
-(23, 'Maria do Carmo', 'carmomaria@gmail.com', '$2y$10$4eiUeLXJj9JYO3mIZOK5qOw55pL8lP0Q8V0.3.HNLmoV9OOhaA8iS', '1987-12-25', 'feminino', '2025-11-27 00:05:36', '(21) 99456-2075', NULL, 'ativo', 'usuario', NULL, NULL, 1);
+(24, 'Victor Matheus dos Santos Ribeiro', 'victor.matheus690@yahoo.com.br', '$2y$10$Up9METBJNXGrLU3R0Xkz9.XdsfXnIukM4jesivVWlp5YtNk2idqFa', '2003-01-08', 'feminino', '2025-11-27 21:00:21', '(21) 96875-2921', NULL, 'ativo', 'usuario', NULL, NULL, 1),
+(25, 'Hyure dos Campos Vieira', 'mrscampos@hotmail.com', '$2y$10$yXuTR/ePF8qw2CLrqk4nG.Lw.pn3DK8G8WBDLtKBBmRxDmrRbXb1q', '2001-12-25', 'masculino', '2025-12-02 21:03:27', '(21) 98074-6532', NULL, 'ativo', 'usuario', NULL, NULL, 1);
 
 --
 -- Índices para tabelas despejadas
@@ -196,31 +223,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de tabela `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT de tabela `goals`
 --
 ALTER TABLE `goals`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de tabela `password_resets`
 --
 ALTER TABLE `password_resets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de tabela `transactions`
 --
 ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de tabela `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Restrições para tabelas despejadas
