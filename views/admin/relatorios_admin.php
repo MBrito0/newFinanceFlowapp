@@ -2,6 +2,8 @@
 
 // Caminho correto para chegar no config.php (2 níveis acima)
 require_once __DIR__ . "/../../includes/config.php";
+require_once __DIR__ . "/../../includes/navbar_admin.php";
+
 
 // Bloqueia acesso de quem não é admin
 if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
@@ -98,6 +100,31 @@ $ultimos = $conn->query("
         color: var(--text-color);
         line-height: 1.6;
     }
+
+    /* Botões superiores */
+.top-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.btn-nav {
+    background-color: #ffffff;
+    color: #013574ff;
+    padding: 10px 18px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    border: 2px solid #013574ff;
+    transition: 0.3s;
+}
+
+.btn-nav:hover {
+    background-color: #013574ff;
+    color: #ffffff;
+}
+
 
     h1 {
         color: var(--highlight-color);
@@ -217,6 +244,12 @@ $ultimos = $conn->query("
 </style>
 </head>
 <body>
+    
+
+<!-- <div class="top-buttons">
+    <a href="dashboard.php" class="btn-nav">← Voltar ao Dashboard</a>
+    <a href="lista_usuarios.php" class="btn-nav">👥 Gerenciar Usuários</a>
+</div> -->
 
 <h1>Relatórios Administrativos</h1>
 
